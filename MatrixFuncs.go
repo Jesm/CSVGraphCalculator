@@ -53,15 +53,12 @@ func CalculateMatrixDistancesOf(matriz [][]int, index int) []int {
 	curr:=index
 	visited[curr]=true
 	for {
-		found:=false
-
 		// Atualiza as distancias
 		for x:=0; x<size; x++ {
 			if visited[x]||matriz[curr][x]==0 {
 				continue
 			}
 
-			found=true
 			dist:=ret[curr]+matriz[curr][x]
 			if ret[x]==0||dist<ret[x] {
 				ret[x]=dist
@@ -69,19 +66,19 @@ func CalculateMatrixDistancesOf(matriz [][]int, index int) []int {
 		}
 
 		// Define o nodo a ser verificado na proxima iteracao
-		if found {
-			curr=-1
+		curr=-1
 
-			for x:=0; x<size; x++ {
-				if visited[x]||ret[x]==0 {
-					continue
-				}
-
-				if curr==-1||ret[x]<ret[curr] {
-					curr=x
-				}
+		for x:=0; x<size; x++ {
+			if visited[x]||ret[x]==0 {
+				continue
 			}
 
+			if curr==-1||ret[x]<ret[curr] {
+				curr=x
+			}
+		}
+
+		if curr!=-1 {
 			visited[curr]=true
 		} else {
 			break
