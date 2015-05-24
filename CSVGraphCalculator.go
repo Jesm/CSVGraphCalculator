@@ -25,4 +25,7 @@ func main() {
 
 	fmt.Printf("Matriz lida:\n")
 	DisplayMatrix(matriz)
+
+	fmt.Printf("\nMatriz gerada:\n")
+	DisplayMatrix(GenerateDistanceMatrix(matriz))
 }
