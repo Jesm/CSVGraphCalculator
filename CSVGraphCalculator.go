@@ -16,11 +16,10 @@ func main() {
 
 	leitor:=csv.NewReader(arquivo)
 	valores, erro:=leitor.ReadAll()
-	
-	for x:=0; x<len(valores); x++ {
-		for y:=0; y<len(valores[x]); y++ {
-			fmt.Printf(" %v ", valores[x][y])
-		}
-		fmt.Printf("\n")
+	if erro!=nil {
+		fmt.Printf("%v \n", erro)
+		return
 	}
+	
+	DisplayMatrix(valores)
 }
