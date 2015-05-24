@@ -20,6 +20,9 @@ func main() {
 		fmt.Printf("%v \n", erro)
 		return
 	}
-	
-	DisplayMatrix(valores)
+
+	matriz:=ConvertToIntMatrix(valores)
+
+	fmt.Printf("Matriz lida:\n")
+	DisplayMatrix(matriz)
 }
