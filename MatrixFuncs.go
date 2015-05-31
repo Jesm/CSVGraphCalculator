@@ -90,3 +90,23 @@ func CalculateMatrixDistancesOf(matriz [][]int, index int) []int {
 
 	return ret
 }
+
+func proximityOfCentralityOf(matriz []int, index int) float64 {
+	size:=len(matriz)
+	if size<2 {
+		return 0
+	}
+
+	sum:=0
+	for x, v:=range matriz {
+		if x!=index{
+			sum+=v
+		}
+	}
+
+	if sum==0 {
+		return 0
+	}
+
+	return float64(size-1)/float64(sum)
+}

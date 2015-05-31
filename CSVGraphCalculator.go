@@ -29,6 +29,28 @@ func main() {
 	fmt.Printf("Matriz lida:\n")
 	DisplayMatrix(matriz)
 
+	matrizDistancias:=GenerateDistanceMatrix(matriz)
+
 	fmt.Printf("\nMatriz gerada:\n")
-	DisplayMatrix(GenerateDistanceMatrix(matriz))
+	DisplayMatrix(matrizDistancias)
+
+	proximities:=make([]float64, len(matrizDistancias))
+	for x, v:=range matrizDistancias {
+		proximities[x]=proximityOfCentralityOf(v, x)
+	}
+	// sort.Sort(ByProximity{proximities})
+
+	fmt.Printf("\nProximidade da centralidade de cada nodo:\n")
+	for x, v:=range proximities {
+		fmt.Printf("%v = %.2v%v\n", x, v*100, "%")
+	}
 }
+
+// type Nodo struct {
+// 	index int
+// 	proximity float
+// }
+
+// func (s ByProximity) Less(i, j int) bool {
+// 	return s.Organs[i].Name < s.Organs[j].Name
+// }
