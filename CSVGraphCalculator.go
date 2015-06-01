@@ -5,9 +5,9 @@ package main
 
 import(
 	"fmt"
-	// "io"
 	"encoding/csv"
 	"os"
+	"sort"
 )
 
 func main() {
@@ -34,23 +34,14 @@ func main() {
 	fmt.Printf("\nMatriz gerada:\n")
 	DisplayMatrix(matrizDistancias)
 
-	proximities:=make([]float64, len(matrizDistancias))
+	proximities:=make(Nodes, len(matrizDistancias))
 	for x, v:=range matrizDistancias {
-		proximities[x]=proximityOfCentralityOf(v, x)
+		proximities[x]=Node{x, proximityOfCentralityOf(v, x)}
 	}
-	// sort.Sort(ByProximity{proximities})
+	sort.Sort(proximities)
 
 	fmt.Printf("\nProximidade da centralidade de cada nodo:\n")
-	for x, v:=range proximities {
-		fmt.Printf("%v = %.2v%v\n", x, v*100, "%")
+	for _, v:=range proximities {
+		fmt.Printf("%v = %.2v%v\n", v.index, v.proximity*100, "%")
 	}
 }
-
-// type Nodo struct {
-// 	index int
-// 	proximity float
-// }
-
-// func (s ByProximity) Less(i, j int) bool {
-// 	return s.Organs[i].Name < s.Organs[j].Name
-// }
