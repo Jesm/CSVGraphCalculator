@@ -42,6 +42,6 @@ func main() {
 
 	fmt.Printf("\nProximidade da centralidade de cada nodo:\n")
 	for _, v:=range proximities {
-		fmt.Printf("%v = %.2v%v\n", v.index, v.proximity*100, "%")
+		fmt.Printf("%v = %.4v%v\n", v.index, v.proximity*100, "%")
 	}
 }
