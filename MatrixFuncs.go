@@ -38,17 +38,17 @@ func DisplayMatrix(matriz [][]int){
 	}
 }
 
-func GenerateDistanceMatrix(matriz [][]int) [][]int {	
+func GenerateDistanceMatrix(matriz [][]int, include_in bool) [][]int {	
 	ret:=make([][]int, len(matriz))
 
 	for x, _:=range matriz {
-		ret[x]=CalculateMatrixDistancesOf(matriz, x)
+		ret[x]=CalculateMatrixDistancesOf(matriz, x, include_in)
 	}
 
 	return ret
 }
 
-func CalculateMatrixDistancesOf(matriz [][]int, index int) []int {
+func CalculateMatrixDistancesOf(matriz [][]int, index int, include_in bool) []int {
 	size:=len(matriz[index])
 	ret:=make([]int, size)
 	visited:=make([]bool, size)
@@ -58,11 +58,20 @@ func CalculateMatrixDistancesOf(matriz [][]int, index int) []int {
 	for {
 		// Atualiza as distancias
 		for x:=0; x<size; x++ {
-			if visited[x]||matriz[curr][x]==0 {
+			if visited[x] {
 				continue
 			}
 
-			dist:=ret[curr]+matriz[curr][x]
+			dist:=matriz[curr][x]
+			if include_in && (dist==0 || (matriz[x][curr]!=0 && dist-matriz[x][curr]>0) ) {
+				dist=matriz[x][curr]
+			}
+
+			if dist==0 {
+				continue
+			}
+
+			dist+=ret[curr]
 			if ret[x]==0||dist<ret[x] {
 				ret[x]=dist
 			}
@@ -91,15 +100,15 @@ func CalculateMatrixDistancesOf(matriz [][]int, index int) []int {
 	return ret
 }
 
-func proximityOfCentralityOf(matriz []int, index int) float64 {
+func proximityOfCentralityOf(matriz [][]int, index int) float64 {
 	size:=len(matriz)
 	if size<2 {
 		return 0
 	}
 
 	sum:=0
-	for x, v:=range matriz {
-		if x!=index{
+	for x, v:=range matriz[index] {
+		if x!=index {
 			sum+=v
 		}
 	}

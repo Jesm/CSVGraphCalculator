@@ -29,14 +29,13 @@ func main() {
 	fmt.Printf("Matriz lida:\n")
 	DisplayMatrix(matriz)
 
-	matrizDistancias:=GenerateDistanceMatrix(matriz)
-
 	fmt.Printf("\nMatriz gerada:\n")
-	DisplayMatrix(matrizDistancias)
+	DisplayMatrix(GenerateDistanceMatrix(matriz, false))
 
+	matrizDistancias:=GenerateDistanceMatrix(matriz, true)
 	proximities:=make(Nodes, len(matrizDistancias))
-	for x, v:=range matrizDistancias {
-		proximities[x]=Node{x, proximityOfCentralityOf(v, x)}
+	for x, _:=range matrizDistancias {
+		proximities[x]=Node{x, proximityOfCentralityOf(matrizDistancias, x)}
 	}
 	sort.Sort(proximities)
 
